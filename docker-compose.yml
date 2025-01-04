@@ -1,3 +1,6 @@
+#データベース初期化スクリプトを実行できるように変更
+version: '3.8'
+
 services:
   app:
     build:
@@ -15,12 +18,13 @@ services:
     image: se-db
     container_name: db
     restart: always
-    # environment:
-      # MYSQL_ROOT_PASSWORD: password
+    environment:
+       MYSQL_ROOT_PASSWORD: password   #このコメントアウトを外した
+       MYSQL_DATABASE: example_db      #新しく追加した文。 サンプルデータベース作った。(スタンプ照合用)
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-      # - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql    #このコメントアウトを外した
 volumes:
   db_data:
